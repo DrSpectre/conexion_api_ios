@@ -11,24 +11,30 @@ struct PantallaPublicacion: View {
     @Environment(ControladorGeneral.self) var controlador
     
     var body: some View {
-        switch(controlador.estado){
-            case .descargando_datos:
-                Text("Descargando los datos")
-                    .onAppear{
-                        controlador.descargar_publicacion(id: id)
-                    }
-                
-            case .mostrarando_datos:
-                Text("\(controlador.publicacion)")
-                
-            case .error_en_descarga:
-                Text("Existe un error en la descarga")
-            
+        if( controlador.publicacion == nil){
+            switch(controlador.estado){
+                case .descargando_publicacion:
+                    Text("Descargando los datos")
+                    
+                case .en_espera:
+                    Text("\(controlador.publicacion)")
+                        .onAppear{
+                            controlador.descargar_publicacion(id: id)
+                        }
+                    
+                case .error_en_descarga:
+                    Text("Existe un error en la descarga")
+                default:
+                    Text("Si ves esto, puedes mostrar esta pantalla por una galleta.")
+            }
+        }
+        else {
+            Text("\(controlador.publicacion)")
         }
     }
 }
 
 #Preview {
-    PantallaPublicacion(id: 1)
+    PantallaPublicacion(id: 2)
         .environment(ControladorGeneral())
 }

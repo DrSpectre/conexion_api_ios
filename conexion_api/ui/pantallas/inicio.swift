@@ -12,27 +12,34 @@ struct Inicio: View {
     
     var body: some View {
         Text("Hola mundo")
-        
-        switch(controlador.estado){
-            case .descargando_datos:
-                Text("CArgando, por favor espera")
-                
-            case .mostrarando_datos:
-                NavigationStack{
+        NavigationStack{
+            switch(controlador.estado){
+                case .descargando_publicaciones:
+                    Text("CArgando, por favor espera")
+                    
+                case .en_espera:
                     ScrollView{
                         ForEach(controlador.publicaciones){ publicacion in
                             NavigationLink{
-                                
+                                PantallaPublicacion(id: publicacion.id)
                             } label: {
                                 Text(publicacion.title)
                             }
+                            .simultaneousGesture(TapGesture().onEnded {
+                                controlador.publicacion = nil
+                                controlador.descargar_publicacion(id: publicacion.id)
+                            }
+                            )
+                            
                         }
                     }
-                }
-                
-                
-            case .error_en_descarga:
-                Text("ERROR: Asegurate de tener wifi!!!")
+                    
+                    
+                case .descargando_publicacion:
+                    Text("")
+                case .error_en_descarga:
+                    Text("ERROR: Asegurate de tener wifi!!!")
+            }
         }
         
     }
