@@ -17,19 +17,30 @@ struct PantallaPublicacion: View {
                     Text("Descargando los datos")
                     
                 case .en_espera:
-                    Text("\(controlador.publicacion)")
+                    Text("-----")
                         .onAppear{
                             controlador.descargar_publicacion(id: id)
                         }
-                    
                 case .error_en_descarga:
                     Text("Existe un error en la descarga")
+                    
                 default:
                     Text("Si ves esto, puedes mostrar esta pantalla por una galleta.")
             }
         }
         else {
-            Text("\(controlador.publicacion)")
+            Text("\(controlador.estado)")
+            
+            Text("Publicacion: \(controlador.publicacion?.title ?? "")")
+            ScrollView(.horizontal) {
+                HStack{
+                    ForEach(controlador.publicacion?.comentarios ?? [Comentario]()){ comentario in
+                        Text("Comentario: \(comentario.body)")
+                        Text("Escrito por: \(comentario.name)")
+                        
+                    }
+                }
+            }
         }
     }
 }
