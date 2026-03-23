@@ -19,8 +19,13 @@ struct PantallaPublicacion: View {
                             .symbolEffect(.bounce.down, options: .repeat(3))
                         
                     case .en_espera:
-                        Text("\(controlador.publicacion?.title)")
-                        Text("\(controlador.publicacion?.body)")
+                        if let publicacion = controlador.publicacion{
+                            VistaPublicacion(publicacion: publicacion)
+                        }
+                        else {
+                            Text("Error en la descarga")
+                        }
+                    
                     case .error_en_descarga:
                         Text("Existe un error en la descarga")
                         
