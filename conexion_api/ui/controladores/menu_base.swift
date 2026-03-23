@@ -11,18 +11,18 @@ struct MenuBase: View {
     
     var body: some View {
         TabView{
-            Tab("Publiaciones", systemImage: "tray.and.arrow.down.fill") {
+            Tab("Publiaciones", systemImage: "square.and.pencil"){
                 Inicio()
             }
             .badge(controlador.publicaciones.count)
             
             
-            Tab("Perfil", systemImage: "tray.and.arrow.up.fill") {
+            Tab("Perfil", systemImage: "person.crop.circle.fill") {
                 Text("Deberia hacer una pantalla de el perfil")
             }
             
             
-            Tab("Configuración", systemImage: "person.crop.circle.fill") {
+            Tab("Configuración", systemImage: "gearshape") {
                 Text("Tambien una de configuracion")
             }
             .badge("!")

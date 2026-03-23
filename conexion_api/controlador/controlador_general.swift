@@ -17,12 +17,16 @@ class ControladorGeneral{
     public var publicacion: Publicacion? = nil
     
     init(){
-        estado = .descargando_publicaciones
+        estado = .en_espera
         
-        descargar_publicaciones()
+        // descargar_publicaciones() /// Esto ya esta viejo, hay que borrarlo en el futuro
     }
     
     func descargar_publicacion(id: Int){
+        if(estado != .en_espera){
+            return
+        }
+        
         self.publicacion = nil
         
         estado = .descargando_publicacion
@@ -65,9 +69,17 @@ class ControladorGeneral{
     }
     
     func descargar_publicaciones(){
+        if(estado != .en_espera){
+            return
+        }
+        
+        estado = .descargando_publicaciones
+        
         Task{
             try await Task.sleep(for: .seconds(5))
             await _descargar_publicaciones()
+            
+            estado = .en_espera
         }
     }
     
