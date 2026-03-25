@@ -37,8 +37,7 @@ class ControladorUsuario{
             estado = .esperando
         }
         else { // Si recivimos un nil, entonces algo salio mal y debo poner una pantalla de error.
-            estado = .error_en_la_descarga
-            
+            estado = .error_en_la_descarga 
         }
     }
     

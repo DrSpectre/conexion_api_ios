@@ -18,7 +18,7 @@ struct MenuBase: View {
             
             
             Tab("Perfil", systemImage: "person.crop.circle.fill") {
-                Text("Deberia hacer una pantalla de el perfil")
+                PantallaUsuario(id: 7)
             }
             
             
